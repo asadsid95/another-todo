@@ -7,6 +7,7 @@ let buttonSubmitTask = document.getElementById('submit')
 let tasksList = document.getElementById('tasks-list')
 let optionDeadline = document.getElementById('deadlines')
 let optionPriority = document.getElementById('priority')
+let optionCategory = document.getElementById('category')
 
 // event listener for click event so the data submitted via input field can be added into webpage
 function addTaskToList(e){
@@ -21,8 +22,8 @@ function addTaskToList(e){
         const taskDeadline =optionDeadline.value
         //extract task priority
         const textPriority = optionPriority.value
-
-        console.log(taskDeadline)
+        //extract task category
+        const textCategory = optionCategory.value
 
         // date and time to be used when task is created
         const newTaskCreatedAt = new Date().toLocaleString()
@@ -34,7 +35,6 @@ function addTaskToList(e){
             'display': 'flex',
             'flexDirection': 'column',
             'justifyContent': 'center'
-    
         }
         for ( const [styleName, value] of Object.entries(divStyle)) {
             newTaskDiv.style[styleName] = value
@@ -52,25 +52,33 @@ function addTaskToList(e){
         const newTaskdescription = document.createElement('p')
         newTaskdescription.textContent= `(created at ${newTaskCreatedAt}) Description: ${taskDescription}`
 
-        // create p element to show task's deadline
+        // create span element to show task's deadline
         const newTaskDeadline = document.createElement('span')
         newTaskDeadline.textContent = `Due: ${formatDueDate(taskDeadline)}`
 
+        // create span element to show task's priority
         const newTaskPriority = document.createElement('span')
         newTaskPriority.textContent = `Priority: ${textPriority}`
+
+        // create span element to show task's category
+        const newTaskCategory = document.createElement('span')
+        newTaskCategory.textContent = `Category: ${textCategory}`
 
         // create button which will be beside <li>
         const deleteTaskButton = document.createElement('button')
         deleteTaskButton.className='delete-button'
         deleteTaskButton.textContent = 'Delete'
     
-        newTask.append(newTaskTitle, newTaskdescription, newTaskDeadline, newTaskPriority, deleteTaskButton)
+        newTask.append(newTaskTitle, newTaskdescription, newTaskDeadline, newTaskPriority, newTaskCategory, deleteTaskButton)
 
         newTaskDiv.appendChild(newTask)
         taskLists.append(newTaskDiv)
         
         inputTaskTitle.value = ''
         textareaDescription.value = ''
+        optionDeadline.selectedIndex=0
+        optionPriority.selectedIndex=0
+        optionCategory.selectedIndex=0
     
         function removeTask() {
             taskLists.removeChild(newTaskDiv)
