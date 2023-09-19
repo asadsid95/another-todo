@@ -19,8 +19,18 @@
                 </div>
                 <div>
                     <label>Description</label>
-                    <textarea id="task-description" title="description" minlength="3"
-                        placeholder="Add task description"></textarea>
+                    <textarea id="task-description" title="description" minlength="3" placeholder="Add task description"
+                        required></textarea>
+                </div>
+                <div>
+                    <label>Deadline</label>
+                    <select name="deadlines" id="deadlines">
+                        <option value="1 hour">1 hour</option>
+                        <option value="1 day">1 day</option>
+                        <option value="1 week">1 week</option>
+
+                    </select>
+
                 </div>
                 <button id='submit' type="submit">Add</button>
             </form>

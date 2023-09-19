@@ -5,6 +5,7 @@ let inputTaskTitle = document.getElementById('task-title')
 let textareaDescription = document.getElementById('task-description')
 let buttonSubmitTask = document.getElementById('submit')
 let tasksList = document.getElementById('tasks-list')
+let optionDeadline = document.getElementById('deadlines')
 
 // event listener for click event so the data submitted via input field can be added into webpage
 function addTaskToList(e){
@@ -15,6 +16,13 @@ function addTaskToList(e){
         const taskTitle = inputTaskTitle.value
         // extract task description from input
         const taskDescription = textareaDescription.value
+        // extract task deadline from input
+        const taskDeadline =optionDeadline.value
+
+        console.log(taskDeadline)
+
+        // date and time to be used when task is created
+        const newTaskCreatedAt = new Date().toLocaleString()
 
         // create div for the task, assign class name and styles 
         const newTaskDiv = document.createElement('div')
@@ -35,18 +43,22 @@ function addTaskToList(e){
 
         // create h3 for task title
         const newTaskTitle = document.createElement('h3')
-        newTaskTitle.textContent= taskTitle
+        newTaskTitle.textContent= `Title: ${taskTitle}`
 
         // create p element for the task description
         const newTaskdescription = document.createElement('p')
-        newTaskdescription.textContent= taskDescription
-        
+        newTaskdescription.textContent= `(created at ${newTaskCreatedAt}) Description: ${taskDescription}`
+
+        // create p element to show task's deadline
+        const newTaskDeadline = document.createElement('span')
+        newTaskDeadline.textContent = `Due: ${formatDueDate(taskDeadline)}`
+
         // create button which will be beside <li>
         const deleteTaskButton = document.createElement('button')
         deleteTaskButton.className='delete-button'
         deleteTaskButton.textContent = 'Delete'
     
-        newTask.append(newTaskTitle, newTaskdescription, deleteTaskButton)
+        newTask.append(newTaskTitle, newTaskdescription, newTaskDeadline, deleteTaskButton)
 
         newTaskDiv.appendChild(newTask)
         taskLists.append(newTaskDiv)
@@ -60,6 +72,21 @@ function addTaskToList(e){
 
         // event listener for clicking on delete task that should delete specific task
         deleteTaskButton.addEventListener('click', removeTask)
+}
+
+function formatDueDate(selectedDue) {
+    if (selectedDue === '1 hour') {
+        const oneHourLater = new Date(Date.now() + 60 * 60 * 1000);
+        return oneHourLater.toLocaleString();
+    } else if (selectedDue === '1 day') {
+        const oneDayLater = new Date(Date.now() + 24 * 60 * 60 * 1000);
+        return oneDayLater.toLocaleString();
+    } else if (selectedDue === '1 week') {
+        const oneWeekLater = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+        return oneWeekLater.toLocaleString();
+    } else {
+        return 'N/A';
     }
+}
 
 buttonSubmitTask.addEventListener('click', addTaskToList)
