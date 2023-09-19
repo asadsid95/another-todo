@@ -6,6 +6,7 @@ let textareaDescription = document.getElementById('task-description')
 let buttonSubmitTask = document.getElementById('submit')
 let tasksList = document.getElementById('tasks-list')
 let optionDeadline = document.getElementById('deadlines')
+let optionPriority = document.getElementById('priority')
 
 // event listener for click event so the data submitted via input field can be added into webpage
 function addTaskToList(e){
@@ -18,6 +19,8 @@ function addTaskToList(e){
         const taskDescription = textareaDescription.value
         // extract task deadline from input
         const taskDeadline =optionDeadline.value
+        //extract task priority
+        const textPriority = optionPriority.value
 
         console.log(taskDeadline)
 
@@ -53,12 +56,15 @@ function addTaskToList(e){
         const newTaskDeadline = document.createElement('span')
         newTaskDeadline.textContent = `Due: ${formatDueDate(taskDeadline)}`
 
+        const newTaskPriority = document.createElement('span')
+        newTaskPriority.textContent = `Priority: ${textPriority}`
+
         // create button which will be beside <li>
         const deleteTaskButton = document.createElement('button')
         deleteTaskButton.className='delete-button'
         deleteTaskButton.textContent = 'Delete'
     
-        newTask.append(newTaskTitle, newTaskdescription, newTaskDeadline, deleteTaskButton)
+        newTask.append(newTaskTitle, newTaskdescription, newTaskDeadline, newTaskPriority, deleteTaskButton)
 
         newTaskDiv.appendChild(newTask)
         taskLists.append(newTaskDiv)
